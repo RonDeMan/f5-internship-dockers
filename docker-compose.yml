@@ -1,0 +1,15 @@
+services:
+  # Nginx Server Service
+  nginx-server:
+    build:
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+
+  # Test Runner Service
+  test-runner:
+    build:
+      dockerfile: Dockerfile.test
+    depends_on:
+      - nginx-server # depends_on ensures the test runner waits for the server to be 'up' before starting

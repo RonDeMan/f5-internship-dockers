@@ -1,0 +1,8 @@
+FROM python
+
+RUN pip install requests
+
+COPY test-nginx-script.py .
+
+# Run the script when the container starts
+CMD ["python", "test-nginx-script.py"]

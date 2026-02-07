@@ -1,0 +1,10 @@
+FROM ubuntu
+
+RUN apt-get update && apt-get install -y nginx
+RUN rm /etc/nginx/sites-enabled/default
+
+COPY nginx.config /etc/nginx/sites-enabled/
+
+EXPOSE 8080 9090
+
+CMD ["nginx", "-g", "daemon off;"]
