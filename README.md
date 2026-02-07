@@ -1,6 +1,6 @@
 # f5-internship-dockers
 
-all you need to do to run is:
+**running the project**:
 
 docker compose up --build (there you will see at the end that the tests have passed)
 
@@ -11,7 +11,7 @@ open up https://localhost:9090 (will show as an error page since its designed to
 
 
 
-implimentation explanation:
+**implimentation explanation**:
 
 I have two different docker files that will build our images, on for nginx and one for the Python script that tests the implemenations.
 
