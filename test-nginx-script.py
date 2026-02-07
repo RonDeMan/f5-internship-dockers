@@ -1,9 +1,13 @@
 import requests
 import sys
+import urllib3
+
 
 def test_servers():
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-    base_url = "http://nginx-server" 
+    # since the name in the docker compose is nginx-server we can use that as the hostname
+    base_url = "https://nginx-server" 
     
     tests = [
         {"port": 8080, "expected_status": 200, "expected_content": "Hello from Port 8080!"},
@@ -14,7 +18,8 @@ def test_servers():
         url = f"{base_url}:{test['port']}"
         print(f"Testing {url}...")
         try:
-            response = requests.get(url, timeout=5)
+            # verify=False is used to ignore SSL certificate warnings since we are using self-signed certs
+            response = requests.get(url, timeout=5, verify=False)
             
             # Check Status Code
             if response.status_code != test['expected_status']:
@@ -33,7 +38,8 @@ def test_servers():
             sys.exit(1)
 
     print("All tests passed successfully!")
-    sys.exit(0)
+
 
 if __name__ == "__main__":
     test_servers()
+    sys.exit(0)
