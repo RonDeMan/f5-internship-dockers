@@ -9,6 +9,8 @@ open up https://localhost::8080 (ignore the self signed error and enter)
 open up https://localhost:9090 (will show as an error page since its designed to be that)
 
 
+
+
 implimentation explanation:
 
 I have two different docker files that will build our images, on for nginx and one for the Python script that tests the implemenations.
