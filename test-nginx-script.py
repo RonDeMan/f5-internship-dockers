@@ -37,6 +37,28 @@ def test_servers():
             print(f"CONNECTION ERROR: {e}")
             sys.exit(1)
 
+    # Rate Limiting Test
+    print("\nTesting Rate Limiting (5r/s)...")
+    url_8080 = f"{base_url}:8080"
+    rate_limit_triggered = False
+    
+    # Fire 20 requests quickly to exhaust the burst of 5 and the rate of 5r/s
+    for i in range(20):
+        try:
+            response = requests.get(url_8080, verify=False)
+            if response.status_code == 429:
+                print(f"Request {i+1}: Rate limit hit (429) as expected.")
+                rate_limit_triggered = True
+                break
+        except requests.exceptions.RequestException:
+            continue
+
+    if rate_limit_triggered:
+        print("SUCCESS: Rate limiting is active.")
+    else:
+        print("FAILED: Did not hit rate limit (429).")
+        sys.exit(1)
+
     print("All tests passed successfully!")
 
 
