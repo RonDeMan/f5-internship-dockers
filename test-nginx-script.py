@@ -7,6 +7,7 @@ def test_servers():
 
     #base test 
 
+    # disable warnings about self-signed certificates
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     # since the name in the docker compose is nginx-server we can use that as the hostname
@@ -41,7 +42,7 @@ def test_servers():
             sys.exit(1)
 
     # Rate Limiting Test
-    print("\nTesting Rate Limiting (1r/s)...")
+    print("Testing Rate Limiting (1r/s)...")
     url_8080 = f"{base_url}:8080"
     hit_429 = False
     
@@ -57,7 +58,7 @@ def test_servers():
             continue
 
     if not hit_429:
-        print("FAILED: Rate limit was not triggered. Try lowering the burst in nginx.config.")
+        print("FAILED: Rate limit was not triggered.")
         sys.exit(1)
 
     print("All tests passed successfully!")

@@ -11,7 +11,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -out /etc/nginx/ssl/nginx.crt \
     -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
 
-
+# remove default nginx configs
 RUN rm /etc/nginx/sites-enabled/default
 
 COPY nginx.config /etc/nginx/sites-enabled/

@@ -13,13 +13,13 @@ open up https://localhost:9090 (will show as an error page since its designed to
 
 **implimentation explanation**:
 
-I have two different docker files that will build our images, on for nginx and one for the Python script that tests the implemenations.
-chose python slim for a smaller docker image size.
+I have two different docker files that will build our images, one for nginx and one for the Python script that tests the implemenations.
+Chose python slim for a smaller docker image size.
 
 In the nginx one I set daemon to off to have nginx run on the foreground so that the docker knows not to shut down the container.
 
 
-in nginx.config I set the servers that nginx will run on https, with only the 8080 server having a rate limit of 1 per second (for testing purposes) and 10mb of storage for ip addresses (a huge amount for the scope of this test)
+In nginx.config I set the servers that nginx will run on to https, with only the 8080 server having a rate limit of 1 per second (for testing purposes) and 10mb of storage for ip addresses (a huge amount for the scope of this assignment)
 
 
 In the python test code I just ran the two different tests in different sections of the same test function (thought about splitting them but decided that they both use base_url and serve the base functionality of testing the implementation of the servers. could also split into two functions)
