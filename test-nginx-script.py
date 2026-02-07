@@ -6,7 +6,7 @@ import urllib3
 def test_servers():
 
     #base test 
-    
+
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     # since the name in the docker compose is nginx-server we can use that as the hostname
@@ -41,7 +41,7 @@ def test_servers():
             sys.exit(1)
 
     # Rate Limiting Test
-    print("\nTesting Rate Limiting (5r/s)...")
+    print("\nTesting Rate Limiting (1r/s)...")
     url_8080 = f"{base_url}:8080"
     hit_429 = False
     
@@ -50,7 +50,7 @@ def test_servers():
         try:
             resp = requests.get(url_8080, verify=False, timeout=1)
             if resp.status_code == 429:
-                print(f"Request {i+1}: Successfully hit Rate Limit (429).")
+                print(f"Request {i+1}: Successfully hit Rate Limit (429 error code).")
                 hit_429 = True
                 break
         except requests.exceptions.RequestException:
