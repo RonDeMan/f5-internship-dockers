@@ -1,0 +1,42 @@
+name: Docker CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and Run Docker Compose
+        # We use --exit-code-from to ensure the exit code of the test-runner 
+        # is returned as the exit code for the whole docker-compose command.
+        run: docker compose up --build --exit-code-from test-runner
+
+      - name: Create Success Artifact File
+        if: success()
+        run: echo "The tests passed successfully!" > succeeded
+
+      - name: Create Failure Artifact File
+        if: failure()
+        run: echo "The tests failed!" > fail
+
+      - name: Upload Success Artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-success
+          path: succeeded
+
+      - name: Upload Failure Artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-failure
+          path: fail
