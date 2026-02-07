@@ -31,12 +31,12 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-success
+          name: succeeded
           path: succeeded
 
       - name: Upload Failure Artifact
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-failure
+          name: fail
           path: fail
