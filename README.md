@@ -2,7 +2,7 @@
 
 **running the project**:
 
-docker compose up --build (there you will see at the end that the tests have passed)
+docker compose up --build (there you will see at the end that the tests have passed, make sure that you have docker open on your pc)
 
 open up https://localhost::8080 (ignore the self signed error and enter)
 
